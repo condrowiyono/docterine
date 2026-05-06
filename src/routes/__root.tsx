@@ -1,5 +1,7 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 import { TitleBar } from "@/components/layout/TitleBar";
 import { PrimarySidebar } from "@/components/layout/PrimarySidebar";
 import { CommandPalette } from "@/components/layout/CommandPalette";
@@ -41,18 +43,21 @@ function RootLayout() {
   }, [setCommandOpen]);
 
   return (
-    <div
-      className="flex flex-col w-full h-full overflow-hidden"
-      style={{ background: "var(--app-bg)" }}
-    >
-      <TitleBar />
-      <div className="flex flex-1 min-h-0 overflow-hidden">
-        <PrimarySidebar />
-        <div className="flex flex-1 min-w-0 pr-3 pb-3">
-          <Outlet />
+    <TooltipProvider delayDuration={200}>
+      <div
+        className="flex flex-col w-full h-full overflow-hidden"
+        style={{ background: "var(--app-bg)" }}
+      >
+        <TitleBar />
+        <div className="flex flex-1 min-h-0 overflow-hidden">
+          <PrimarySidebar />
+          <div className="flex flex-1 min-w-0 pr-3 pb-3">
+            <Outlet />
+          </div>
         </div>
+        <CommandPalette />
+        <Toaster position="bottom-right" closeButton />
       </div>
-      <CommandPalette />
-    </div>
+    </TooltipProvider>
   );
 }

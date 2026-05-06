@@ -3,8 +3,14 @@ import { rootRoute } from "./routes/__root";
 import { indexRoute } from "./routes/index";
 import { enginesRoute } from "./routes/engines";
 import { settingsRoute } from "./routes/settings";
+import { componentsRoute } from "./routes/components";
 
-const routeTree = rootRoute.addChildren([indexRoute, enginesRoute, settingsRoute]);
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  enginesRoute,
+  settingsRoute,
+  componentsRoute,
+]);
 
 const memoryHistory = createMemoryHistory({ initialEntries: ["/engines"] });
 

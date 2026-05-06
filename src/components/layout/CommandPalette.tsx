@@ -1,12 +1,9 @@
 import {
-  ArrowDown,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUp,
   Box,
   Database,
   HardDrive,
   Layers,
+  LayoutGrid,
   Network,
   Palette,
   Settings,
@@ -68,6 +65,13 @@ const commands = [
     path: "/networks",
   },
   {
+    id: "components",
+    label: "Components",
+    helper: "UI component showcase (shadcn/ui)",
+    icon: LayoutGrid,
+    path: "/components",
+  },
+  {
     id: "engines",
     label: "Engines",
     helper: "Go to engines list",
@@ -102,7 +106,7 @@ export function CommandPalette() {
                   key={command.id}
                   value={command.label}
                   onSelect={() => {
-                    navigate({ to: command.path as "/engines" });
+                    navigate({ to: command.path as never });
                     setCommandOpen(false);
                   }}
                 >

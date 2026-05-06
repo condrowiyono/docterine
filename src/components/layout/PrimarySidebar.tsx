@@ -1,4 +1,4 @@
-import { Box, Database, HardDrive, Home, Layers, List, Network, Settings } from "lucide-react";
+import { Box, Database, HardDrive, Home, Layers, LayoutGrid, List, Network, Settings } from "lucide-react";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { useUIStore } from "@/store/useUIStore";
@@ -10,6 +10,7 @@ const primaryNav = [
   { id: "containers", label: "Containers", icon: Box, group: "DOCKER", path: "/containers" },
   { id: "engines", label: "Engines", icon: Database, group: "OTHER", path: "/engines" },
   { id: "dockerHub", label: "Docker Hub", icon: Home, group: "OTHER", path: "/docker-hub" },
+  { id: "components", label: "Components", icon: LayoutGrid, group: "OTHER", path: "/components" },
 ] as const;
 
 const iconCollapsedClass = "size-4 shrink-0 stroke-2";
@@ -57,7 +58,7 @@ export function PrimarySidebar() {
                       sidebarCollapsed && "justify-center p-0",
                     )}
                     title={sidebarCollapsed ? item.label : undefined}
-                    onClick={() => navigate({ to: item.path as "/engines" })}
+                    onClick={() => navigate({ to: item.path as never })}
                   >
                     <Icon {...iconProps} />
                     {!sidebarCollapsed && <span>{item.label}</span>}
