@@ -24,6 +24,7 @@ export function PrimarySidebar() {
 
   const itemClass =
     "flex h-9 w-full items-center gap-2.5 rounded-lg border-0 bg-transparent px-2.5 text-left text-sm font-normal text-sidebar-foreground";
+  const collapsedItemClass = "mx-auto w-12 justify-center px-0";
 
   const iconProps = sidebarCollapsed
     ? { className: iconCollapsedClass }
@@ -32,13 +33,16 @@ export function PrimarySidebar() {
   return (
     <aside
       className={cn(
-        "flex w-52 shrink-0 grow-0 basis-52 flex-col justify-between px-2.5 pb-2.5 pt-3.5 transition-[width,flex-basis] duration-200 ease-in-out",
-        sidebarCollapsed && "w-14 basis-14 items-center px-1",
+        "flex h-full w-full min-w-0 flex-col justify-between px-2.5 pb-2.5 pt-3.5",
+        sidebarCollapsed && "items-center px-0",
       )}
     >
-      <nav className="flex w-full flex-col gap-1" aria-label="Primary">
+      <nav className={cn("flex w-full flex-col gap-1", sidebarCollapsed && "items-center")} aria-label="Primary">
         {["DOCKER", "OTHER"].map((group, groupIndex) => (
-          <div className={cn("flex flex-col gap-0.5", groupIndex > 0 && "mt-3")} key={group}>
+          <div
+            className={cn("flex flex-col gap-0.5", groupIndex > 0 && "mt-3", sidebarCollapsed && "items-center")}
+            key={group}
+          >
             {!sidebarCollapsed && (
               <div className="px-2 pb-0.5 text-xs font-extrabold uppercase tracking-wider text-muted-foreground">
                 {group}
@@ -55,7 +59,7 @@ export function PrimarySidebar() {
                     className={cn(
                       itemClass,
                       selected && "bg-sidebar-accent text-sidebar-primary",
-                      sidebarCollapsed && "justify-center p-0",
+                      sidebarCollapsed && collapsedItemClass,
                     )}
                     title={sidebarCollapsed ? item.label : undefined}
                     onClick={() => navigate({ to: item.path as never })}
@@ -69,9 +73,9 @@ export function PrimarySidebar() {
         ))}
       </nav>
 
-      <div className="flex w-full flex-col gap-1">
+      <div className={cn("flex w-full flex-col gap-1", sidebarCollapsed && "items-center")}>
         <button
-          className={cn(itemClass, sidebarCollapsed && "justify-center p-0")}
+          className={cn(itemClass, sidebarCollapsed && collapsedItemClass)}
           title={sidebarCollapsed ? "Panel" : undefined}
         >
           <List {...iconProps} />
@@ -81,7 +85,7 @@ export function PrimarySidebar() {
           className={cn(
             itemClass,
             pathname.startsWith("/settings") && "bg-sidebar-accent text-sidebar-primary",
-            sidebarCollapsed && "justify-center p-0",
+            sidebarCollapsed && collapsedItemClass,
           )}
           title={sidebarCollapsed ? "Settings" : undefined}
           onClick={() => navigate({ to: "/settings" })}
